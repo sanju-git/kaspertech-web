@@ -42,12 +42,12 @@ class RiderView extends React.Component {
 
   changeOrderStatus = (status, orderId) => {
     let coordinates;
-    let { name } = this.state;
+    let { name, orders, askName } = this.state;
     if (status === "accepted") {
       if (!this.state.coordinates) {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition);
-          function showPosition(position) {
+          async function showPosition(position) {
             coordinates =
               "latitude = " +
               position.coords.latitude +
@@ -56,11 +56,22 @@ class RiderView extends React.Component {
             RiderService.changeOrderStatus(status, orderId, coordinates).then(
               (response) => {
                 if (response.success) {
-                  this.getRiderOrders(name);
+                  RiderService.getRiderOrders(name).then((response) => {
+                    if (response.success) {
+                      if (response.orders.length >= 1) {
+                        orders = response.orders;
+                        askName = false;
+                        window.location.reload();
+                      } else {
+                        askName = false;
+                      }
+                    }
+                  });
                 }
               }
             );
           }
+          this.setState({ orders, askName });
         }
       } else {
         coordinates = this.state.coordinates;
