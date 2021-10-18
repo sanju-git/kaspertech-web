@@ -1,3 +1,3 @@
 export default {
-  serverURL: "http://localhost:8081",
+  serverURL: "https://kaspertech-api.herokuapp.com",
 };
