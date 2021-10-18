@@ -1,4 +1,3 @@
-import RiderView from "../components/Rider/RiderView";
 import http from "./Ajax";
 
 class RiderService {

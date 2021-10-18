@@ -60,14 +60,7 @@ class CreateOrderForm extends React.Component {
   };
 
   render() {
-    let {
-      description,
-      start,
-      end,
-      rider,
-      riderOptions = [],
-      message,
-    } = this.state;
+    let { description, start, end, riderOptions = [], message } = this.state;
 
     return (
       <div
